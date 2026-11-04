@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.first
  * - Clears launcher references and unbinds from lifecycle in `onDestroy()` to guarantee zero memory leaks.
  * - Uses `PermissionBridge.isRequestActive` to prevent double-spawning permission dialogs on rotation.
  */
-/*
 class RotatablePermissionHelper(
     private val activity: ComponentActivity
 ) : DefaultLifecycleObserver {
@@ -39,12 +38,10 @@ class RotatablePermissionHelper(
         }
     }
 
-    */
-/**
+    /**
      * Call this sequentially from coroutine scope. It launches the permission UI
      * and safely suspends until a result is delivered without trapping Activity context.
-     *//*
-
+     */
     suspend fun requestPermission(permission: String): Boolean {
         if (PermissionBridge.isRequestActive) {
             return PermissionBridge.permissionResults.first()
@@ -62,17 +59,4 @@ class RotatablePermissionHelper(
         launcher = null
         activity.lifecycle.removeObserver(this)
     }
-}
-*/
-
-class RotatablePermissionHelper constructor(
-    private val activity: ComponentActivity
-) : DefaultLifecycleObserver {
-
-    private val launcher: ActivityResultLauncher<String>? = null;
-
-    init {
-        activity.lifecycle.addObserver(this)
-    }
-
 }
